@@ -5,12 +5,28 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-// Uncomment this block to pass the first stage
+let answer = "";
 
-rl.question("$ ", (answer) => {
+function waitForUserInput() {
+  return new Promise((resolve) => {
+    rl.question("$ ", (input) => {
+      resolve(input)
+    });
+  });
+}
+
+async function main() {
+  while(true) {
+
+    answer = await waitForUserInput();
+
     if(answer == "exit 0") {
       rl.close();
+      break;
     }
+
     console.log(`${answer}: command not found`);
-    rl.close();
-});
+  }
+}
+
+main();
