@@ -6,6 +6,11 @@ const rl = readline.createInterface({
 });
 
 // Uncomment this block to pass the first stage
- rl.question("$ ", (answer) => {
-   rl.close();
- });
+
+rl.question("$ ", (answer) => {
+    if(answer == "exit 0") {
+      rl.close();
+    }
+    console.log(`${answer}: command not found`);
+    rl.close();
+});
