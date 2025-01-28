@@ -60,8 +60,13 @@ function inPATH(cmd) {
 }
 
 function isInPathMessage(path, cmd) {
-  if(fs.existsSync(`${path}/${cmd}`)) {
-    console.log(`${cmd} is ${path}/${cmd}`);
+  if(!path.endsWith("\\")) {
+    path = path.concat("\\"); // If path doesn't have \ at the end, adds it.
+  }
+
+  console.log(`${cmd} is ${path}${cmd}`);
+  if(fs.existsSync(`${path}${cmd}`)) {
+    console.log(`${cmd} is ${path}${cmd}`);
     return SUCCESS;
   }
 }
