@@ -43,7 +43,7 @@ function type(args) {
 
 function inPATH(cmd) {
   const PathLength = PATH.length;
-  let response = SUCCESS;
+  let response = NOT_FOUND;
   let currentPath = "";
   let lastSepIndex = 0;
 
@@ -71,7 +71,6 @@ function isInPathMessage(path, cmd) {
     path = path.concat("/"); // If path doesn't have / at the end, adds it.
   }
 
-  console.log(`${cmd} is ${path}${cmd}`);
   if(fs.existsSync(`${path}${cmd}`)) {
     console.log(`${cmd} is ${path}${cmd}`);
     return SUCCESS;
