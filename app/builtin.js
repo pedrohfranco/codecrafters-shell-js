@@ -50,9 +50,10 @@ function inPATH(cmd) {
       isInPathMessage(currentPath, cmd);
     }
 
-    if(PATH[i] == ";") {
+    if(PATH[i] == ":") {
       currentPath = PATH.slice(lastSepIndex, i);
       lastSepIndex = i+1;
+      console.log(lastSepIndex);
       isInPathMessage(currentPath, cmd);
     }
   }
@@ -60,8 +61,8 @@ function inPATH(cmd) {
 }
 
 function isInPathMessage(path, cmd) {
-  if(!path.endsWith("\\")) {
-    path = path.concat("\\"); // If path doesn't have \ at the end, adds it.
+  if(!path.endsWith("/")) {
+    path = path.concat("/"); // If path doesn't have / at the end, adds it.
   }
 
   console.log(`${cmd} is ${path}${cmd}`);
