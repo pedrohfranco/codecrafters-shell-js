@@ -1,4 +1,5 @@
 const fs = require('fs');
+const PATH = process.env.PATH;
 
 const BUILTIN_COMMANDS = Object.freeze({
   "exit": exit,
@@ -43,13 +44,15 @@ function inPATH(cmd) {
   let currentPath = "";
   let lastSepIndex = 0;
 
+  console.log(cmd);
+
   for(let i = 0; i < PathLength; i++) {
     if(i == PathLength - 1) {
       currentPath = PATH.slice(lastSepIndex);
       isInPathMessage(currentPath, cmd);
     }
 
-    if(ch == ";") {
+    if(PATH[i] == ";") {
       currentPath = PATH.slice(lastSepIndex, i);
       lastSepIndex = i+1;
       isInPathMessage(currentPath, cmd);
