@@ -44,8 +44,6 @@ function inPATH(cmd) {
   let currentPath = "";
   let lastSepIndex = 0;
 
-  console.log(cmd);
-
   for(let i = 0; i < PathLength; i++) {
     if(i == PathLength - 1) {
       currentPath = PATH.slice(lastSepIndex);
