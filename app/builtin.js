@@ -43,7 +43,7 @@ function type(args) {
 
 function inPATH(cmd) {
   const PathLength = PATH.length;
-  const response = SUCCESS;
+  let response = SUCCESS;
   let currentPath = "";
   let lastSepIndex = 0;
 
