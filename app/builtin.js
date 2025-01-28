@@ -43,19 +43,24 @@ function type(args) {
 
 function inPATH(cmd) {
   const PathLength = PATH.length;
+  const response = SUCCESS;
   let currentPath = "";
   let lastSepIndex = 0;
 
   for(let i = 0; i < PathLength; i++) {
     if(i == PathLength - 1) {
       currentPath = PATH.slice(lastSepIndex);
-      isInPathMessage(currentPath, cmd);
+      response = isInPathMessage(currentPath, cmd);
     }
 
     if(PATH[i] == ":") {
       currentPath = PATH.slice(lastSepIndex, i);
       lastSepIndex = i+1;
-      isInPathMessage(currentPath, cmd);
+      response = isInPathMessage(currentPath, cmd);
+    }
+
+    if(response == SUCCESS) {
+      return SUCCESS;
     }
   }
 
@@ -71,6 +76,8 @@ function isInPathMessage(path, cmd) {
     console.log(`${cmd} is ${path}${cmd}`);
     return SUCCESS;
   }
+
+  return NOT_FOUND;
 }
 
 module.exports = {
