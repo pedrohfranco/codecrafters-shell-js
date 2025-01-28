@@ -32,7 +32,9 @@ function type(args) {
     }
   }
 
-  inPATH(args);
+  if(inPATH(args) == SUCCESS) {
+    return SUCCESS;
+  }
 
   console.log(`${args}: not found`);
   return NOT_FOUND;
@@ -53,7 +55,6 @@ function inPATH(cmd) {
     if(PATH[i] == ":") {
       currentPath = PATH.slice(lastSepIndex, i);
       lastSepIndex = i+1;
-      console.log(lastSepIndex);
       isInPathMessage(currentPath, cmd);
     }
   }
