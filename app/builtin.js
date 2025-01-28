@@ -24,7 +24,7 @@ function echo(args) {
 function type(args) {
   for(key of Object.keys(BUILTIN_COMMANDS)) {
     if(key == args) {
-      console.log(`${args} is shell builtin.`);
+      console.log(`${args} a is shell builtin`);
       return SUCCESS;
     }
   }
