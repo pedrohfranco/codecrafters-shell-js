@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 const BUILTIN_COMMANDS = Object.freeze({
   "exit": exit,
   "echo": echo,
@@ -29,8 +31,38 @@ function type(args) {
     }
   }
 
+  inPATH(args);
+
   console.log(`${args}: not found`);
-  return SUCCESS;
+  return NOT_FOUND;
+}
+
+
+function inPATH(cmd) {
+  const PathLength = PATH.length;
+  let currentPath = "";
+  let lastSepIndex = 0;
+
+  for(let i = 0; i < PathLength; i++) {
+    if(i == PathLength - 1) {
+      currentPath = PATH.slice(lastSepIndex);
+      isInPathMessage(currentPath, cmd);
+    }
+
+    if(ch == ";") {
+      currentPath = PATH.slice(lastSepIndex, i);
+      lastSepIndex = i+1;
+      isInPathMessage(currentPath, cmd);
+    }
+  }
+
+}
+
+function isInPathMessage(path, cmd) {
+  if(fs.existsSync(`${path}/${cmd}`)) {
+    console.log(`${cmd} is ${path}/${cmd}`);
+    return SUCCESS;
+  }
 }
 
 module.exports = {
