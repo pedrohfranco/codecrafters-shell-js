@@ -1,13 +1,11 @@
+const builtins = require("./builtin.js")
 const readline = require("readline");
-
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
 
-let answer = "";
-
-function waitForUserInput() {
+function waitUserInput() {
   return new Promise((resolve) => {
     rl.question("$ ", (input) => {
       resolve(input)
@@ -15,17 +13,43 @@ function waitForUserInput() {
   });
 }
 
+function checkCommand(input) {
+  input = input.trim();
+
+  const whitespaceIndex = input.indexOf(" ");
+  const cmd = whitespaceIndex == -1 ? input : input.slice(0, input.indexOf(" ")).trim();
+  const args = whitespaceIndex == -1 ? "" : input.slice(input.indexOf(" ")+1);
+
+  if(args == ""){
+    console.log(`${cmd}: command not found`);
+    return builtins.NOT_FOUND;
+  }
+
+  for(key of Object.keys(builtins.BUILTIN_COMMANDS)) {
+    const func = builtins.BUILTIN_COMMANDS[key];
+
+    if(cmd == key) {
+      return func(args.trim());
+    }
+  }
+
+  console.log(`${cmd}: command not found`);
+  return builtins.NOT_FOUND;
+}
+
 async function main() {
+  let answer = "";
+  let response = 1;
   while(true) {
+    
+    answer = await waitUserInput();
 
-    answer = await waitForUserInput();
+    response = checkCommand(answer);
 
-    if(answer == "exit 0") {
+    if(response == builtins.EXIT) {
       rl.close();
       break;
     }
-
-    console.log(`${answer}: command not found`);
   }
 }
 
